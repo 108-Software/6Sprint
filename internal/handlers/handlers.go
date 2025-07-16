@@ -30,7 +30,7 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	absPath, _ := filepath.Abs("../../index.html")
+	absPath, _ := filepath.Abs("./../index.html")
 	http.ServeFile(w, r, absPath)
 }
 
@@ -80,7 +80,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8; text/html")
 	w.Write([]byte(converted))
 
 }
