@@ -26,10 +26,6 @@ func init() {
 }
 
 func RootHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-		http.NotFound(w, r)
-		return
-	}
 	absPath, _ := filepath.Abs("./../index.html")
 	w.Header().Set("Content-Type", "text/html")
 	http.ServeFile(w, r, absPath)
