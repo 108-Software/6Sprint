@@ -30,8 +30,8 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	w.Header().Set("Content-Type", "text/html")
 	absPath, _ := filepath.Abs("./../index.html")
+	w.Header().Set("Content-Type", "text/html")
 	http.ServeFile(w, r, absPath)
 }
 
