@@ -26,12 +26,14 @@ func init() {
 }
 
 func RootHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-		http.NotFound(w, r)
+	wd, err := os.Getwd()
+	if err != nil {
+		http.Error(w, " Не удалось получить рабочий каталог", http.StatusInternalServerError)
 		return
 	}
-	absPath, _ := filepath.Abs("../index.html")
-	http.ServeFile(w, r, absPath)
+	projectRoot := filepath.Dir(wd)
+	indexPath := filepath.Join(projectRoot, "index.html")
+	http.ServeFile(w, r, indexPath)
 }
 
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
@@ -80,7 +82,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.Write([]byte(converted))
 
 }
