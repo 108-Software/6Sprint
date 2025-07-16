@@ -33,7 +33,9 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	projectRoot := filepath.Dir(wd)
 	indexPath := filepath.Join(projectRoot, "index.html")
+	fmt.Println(indexPath)
 	http.ServeFile(w, r, indexPath)
+	fmt.Println(indexPath, "Всё ок")
 }
 
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
