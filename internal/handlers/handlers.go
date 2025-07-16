@@ -26,9 +26,14 @@ func init() {
 }
 
 func RootHandler(w http.ResponseWriter, r *http.Request) {
-	absPath, _ := filepath.Abs("./../index.html")
-	w.Header().Set("Content-Type", "text/html")
-	http.ServeFile(w, r, absPath)
+	wd, err := os.Getwd()
+	if err != nil {
+		http.Error(w, " Не удалось получить рабочий каталог", http.StatusInternalServerError)
+		return
+	}
+	projectRoot := filepath.Dir(wd)
+	indexPath := filepath.Join(projectRoot, "index.html")
+	http.ServeFile(w, r, indexPath)
 }
 
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
