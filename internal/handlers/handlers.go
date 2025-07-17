@@ -26,16 +26,7 @@ func init() {
 }
 
 func RootHandler(w http.ResponseWriter, r *http.Request) {
-	wd, err := os.Getwd()
-	if err != nil {
-		http.Error(w, " Не удалось получить рабочий каталог", http.StatusInternalServerError)
-		return
-	}
-	projectRoot := filepath.Dir(wd)
-	indexPath := filepath.Join(projectRoot, "index.html")
-	fmt.Println(indexPath)
-	http.ServeFile(w, r, indexPath)
-	fmt.Println(indexPath, "Всё ок")
+	http.ServeFile(w, r, "./index.html")
 }
 
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
